@@ -7,44 +7,36 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     // MARK: Project properties
-    @IBOutlet weak var logsTextField: UITextView!
-    @IBOutlet weak var labelCounter: UILabel!
+    @IBOutlet private weak var logsTextField: UITextView!
+    @IBOutlet private weak var labelCounter: UILabel!
     
-    var currentCounter: Int = 0
+    private var currentCounter: Int = 0
     
-    let dateFormatter: DateFormatter = {
+    private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         return formatter
     }()
-   
-    // MARK: Button handlers starts here
-    @IBAction func buttonIncreaseDidTouchDown(_ sender: Any) {
-        increaseCounter()
-    }
     
-    @IBAction func buttonDecreaseDidTouchDown(_ sender: Any) {
-        decreaseCounter()
-    }
-    
-    @IBAction func buttonResetTouchDown(_ sender: Any) {
-        resetCounter()
+    // MARK: Override methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
     
     // MARK: Project methods starts here
     // Methods to increase/decrease counter of books
-    func increaseCounter() {
+    private func increaseCounter() {
         currentCounter += 1
         
         labelCounter.text = "Значение счётчика: \(currentCounter)"
         logsTextField.text.append("\n[\(getDate())]: значение изменено на +1")
     }
     
-    func decreaseCounter() {
+    private func decreaseCounter() {
         if currentCounter > 0 {
             currentCounter -= 1
             
@@ -57,7 +49,7 @@ class ViewController: UIViewController {
     }
     
     // Method to reset counter
-    func resetCounter() {
+    private func resetCounter() {
         currentCounter = 0
         
         labelCounter.text = "Значение счётчика: \(currentCounter)"
@@ -65,13 +57,21 @@ class ViewController: UIViewController {
     }
     
     // Method to get formatted date
-    func getDate() -> String {
+    private func getDate() -> String {
         return dateFormatter.string(from: Date())
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    // MARK: Button handlers starts here
+    @IBAction private func buttonIncreaseDidTouchDown(_ sender: Any) {
+        increaseCounter()
+    }
+    
+    @IBAction private func buttonDecreaseDidTouchDown(_ sender: Any) {
+        decreaseCounter()
+    }
+    
+    @IBAction private func buttonResetTouchDown(_ sender: Any) {
+        resetCounter()
     }
 
 
